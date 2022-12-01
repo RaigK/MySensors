@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MySensors3.2", "MySensors3.2\MySensors3.2.vcxproj", "{C5F80730-F44F-4478-BDAE-6634EFC2CA88}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Clear EEPROM", "Clear EEPROM\Clear EEPROM.vcxproj", "{1C571C4B-FD71-46FC-9405-79B284B9EB37}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GatewaySerial", "GatewaySerial\GatewaySerial.vcxproj", "{1AB443BE-8448-4BD3-A88A-C8CA60C30BAE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NodeManager-master-1.8.0", "Libraries\NodeManager-master\1.8.0\NodeManager-master\NodeManager-master-1.8.0.vcxitems", "{16D0BDE9-6C94-4BB5-8C9E-454B96A5E7C4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HDC2080_Arduino_Example", "..\My Examples\HDC2080_Arduino_Example\HDC2080_Arduino_Example.vcxproj", "{A115C3A8-2DC9-4CDE-A15E-92D5DCDE8270}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Libraries\NodeManager-master\1.8.0\NodeManager-master\NodeManager-master-1.8.0.vcxitems*{16d0bde9-6c94-4bb5-8c9e-454b96a5e7c4}*SharedItemsImports = 9
+		Libraries\NodeManager-master\1.8.0\NodeManager-master\NodeManager-master-1.8.0.vcxitems*{1ab443be-8448-4bd3-a88a-c8ca60c30bae}*SharedItemsImports = 4
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Debug|x86.ActiveCfg = Debug|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Debug|x86.Build.0 = Debug|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Release|x86.ActiveCfg = Release|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Release|x86.Build.0 = Release|Win32
+		{1C571C4B-FD71-46FC-9405-79B284B9EB37}.Debug|x86.ActiveCfg = Debug|Win32
+		{1C571C4B-FD71-46FC-9405-79B284B9EB37}.Debug|x86.Build.0 = Debug|Win32
+		{1C571C4B-FD71-46FC-9405-79B284B9EB37}.Release|x86.ActiveCfg = Release|Win32
+		{1C571C4B-FD71-46FC-9405-79B284B9EB37}.Release|x86.Build.0 = Release|Win32
+		{1AB443BE-8448-4BD3-A88A-C8CA60C30BAE}.Debug|x86.ActiveCfg = Debug|Win32
+		{1AB443BE-8448-4BD3-A88A-C8CA60C30BAE}.Debug|x86.Build.0 = Debug|Win32
+		{1AB443BE-8448-4BD3-A88A-C8CA60C30BAE}.Release|x86.ActiveCfg = Release|Win32
+		{1AB443BE-8448-4BD3-A88A-C8CA60C30BAE}.Release|x86.Build.0 = Release|Win32
+		{A115C3A8-2DC9-4CDE-A15E-92D5DCDE8270}.Debug|x86.ActiveCfg = Debug|Win32
+		{A115C3A8-2DC9-4CDE-A15E-92D5DCDE8270}.Debug|x86.Build.0 = Debug|Win32
+		{A115C3A8-2DC9-4CDE-A15E-92D5DCDE8270}.Release|x86.ActiveCfg = Release|Win32
+		{A115C3A8-2DC9-4CDE-A15E-92D5DCDE8270}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {34E4A457-330F-450E-B25F-7133E0B0B23F}
+	EndGlobalSection
+EndGlobal
