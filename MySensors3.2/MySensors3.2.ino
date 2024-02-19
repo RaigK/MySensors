@@ -1,6 +1,7 @@
 /*
  Name:		MySensors3.ino
  Created:	10/6/2020 9:22:59 PM
+ Changed:   14/02/2024
  Author:	raigk
 */
 
@@ -36,8 +37,8 @@
  // Enable debug prints
 #include <EEPROM.h>
 #define MY_DEBUG
-//#define MY_NODE_ID 101
-#define MY_NODE_ID 122
+#define MY_NODE_ID 102
+//#define MY_NODE_ID 121
 #define MY_SPLASH_SCREEN_DISABLED
 //#define MY_DISABLED_SERIAL
 
@@ -67,8 +68,12 @@
 //#define MY_RFM95_ATC_TARGET_RSSI_DBM (-70)  // target RSSI -70dBm
 //#define MY_RFM95_MAX_POWER_LEVEL_DBM (10)   // max. TX power 10dBm = 10mW
 
+//#define SHT21
+#define DALLAS
+//#define HDC20x0
+//#define _MS5803
+#define BATTERYTEST
 
-#define _MS5803
 #ifdef _MS5803
 
 #include <Wire.h>
@@ -83,7 +88,6 @@ double pressure; //pressure_relative, altitude_delta, pressure_baseline;
 
 #include <MySensors.h>
 
-//#define DALLAS
 #ifdef DALLAS
 // Include the libraries we need
 #include <OneWire.h>
@@ -106,14 +110,13 @@ DeviceAddress Water, Air;
 uint16_t sensorcount;
 #endif
 
-//#define SHT21
 #ifdef SHT21
 #include <Wire.h>
 #include <Sodaq_SHT2x.h>
 #endif // 
 
 
-//#define HDC20x0
+
 #ifdef HDC20x0
 
 #include <HDC2080.h>
@@ -124,7 +127,7 @@ HDC2080 sensor(ADDR);
 //float temperature = 0, humidity = 0;
 #endif
 
-#define BATTEST_PIN  7  // Arduino Digital I/O pin number
+#define BATTEST_PIN  A1  // Arduino Digital I/O pin number
 int BATTERY_SENSE_PIN = A0;  // select the input pin for the battery sense point
 int sensorValue;
 int oldBatteryPcnt, oldBatteryVolt = 0;
@@ -139,7 +142,6 @@ uint32_t SLEEP_TIME = 120000;  // sleep time between reads (seconds * 1000 milli
 #define CHILD_ID_RX_RSSI        (10)
 #define CHILD_ID_TX_SNR         (10)
 #define CHILD_ID_RX_SNR         (10)
-#define CHILD_ID_BAT			(12)
 #define CHILD_ID_BAT			(12)
 #define CHILD_ID_LOWBAT			(13)
 
@@ -163,8 +165,12 @@ MyMessage msgLowBat(CHILD_ID_LOWBAT, V_STATUS);
 
 void setup()
 {
+	pinMode(BATTEST_PIN, OUTPUT);
+	digitalWrite(BATTEST_PIN, HIGH);// enable bat divider
+
 	Serial.begin(MY_BAUD_RATE);
 	// Start up the library
+
 #ifdef DALLAS
 
 	// locate devices on the bus
@@ -228,6 +234,7 @@ void setup()
 
 
 #endif
+
 	analogReference(INTERNAL);
 	sensorValue = analogRead(BATTERY_SENSE_PIN);
 }
@@ -334,8 +341,11 @@ void presentation()
 void loop()
 {
 	Serial.println("wake up");
+#ifdef BATTERYTEST  
 	pinMode(BATTEST_PIN, OUTPUT);
 	digitalWrite(BATTEST_PIN, HIGH);// enable bat divider
+	wait(10);
+#endif
 
 #ifdef _MS5803
 	static MyMessage msgBaro(CHILD_ID_BARO, V_PRESSURE);
@@ -423,11 +433,13 @@ void loop()
 //	float batteryV = sensorValue * 0.01379 * 0.9999;//calib factor ref 3.0
 //	float batteryV = sensorValue * 0.01287 * 1.0;//calib factor ref 2.8
 
-	if (batteryV < 2.7) { 
+	if (batteryV <= 3.0) { 
 		Serial.print("Battey is empty");
 		send(msgLowBat.set(true));
 	}
-	// send messages to GW
+  else {send(msgLowBat.set(false));}
+
+// send messages to GW
 //	send(msgUplinkQuality.set(transportGetSignalReport(SR_UPLINK_QUALITY)));
 	send(msgTxLevel.set(transportGetSignalReport(SR_TX_POWER_LEVEL)));
 //	send(msgTxPercent.set(transportGetSignalReport(SR_TX_POWER_PERCENT)));
@@ -437,9 +449,9 @@ void loop()
 //	send(msgTxSNR.set(transportGetSignalReport(SR_TX_SNR)));
 //	send(msgRxSNR.set(transportGetSignalReport(SR_RX_SNR)));
 	// wait a bit
-
+#ifdef BATTERYTEST  
 	digitalWrite(BATTEST_PIN, LOW);// disable bat divider
-
+#endif
 	// 1M, 270K divider across battery and using internal ADC ref of 1.1V
 	// Sense point is bypassed with 0.1 uF cap to reduce noise at that point
 	// ((1e6+270e3)/270e3)*1.1 = Vmax = 5.174 Volts
@@ -466,12 +478,9 @@ void loop()
 		sendBatteryLevel(batteryPcnt);
 		oldBatteryPcnt = batteryPcnt;
 	}
-//	pinMode(ONE_WIRE_PULLUP, OUTPUT);
 #ifdef DALLAS
 	digitalWrite(ONE_WIRE_PULLUP, LOW);
 #endif DALLAS
 	Serial.println("go sleep");
-
-//	smartSleep(SLEEP_TIME);
 	sleep(SLEEP_TIME, true);
 }
