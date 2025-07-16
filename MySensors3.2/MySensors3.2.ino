@@ -1,7 +1,7 @@
 /*
- Name:		MySensors3.ino
+ Name:		MySensors3.2.ino
  Created:	10/6/2020 9:22:59 PM
- Changed:   14/02/2024
+ Changed:   16/07/2025
  Author:	raigk
 */
 
@@ -37,8 +37,8 @@
  // Enable debug prints
 #include <EEPROM.h>
 #define MY_DEBUG
-#define MY_NODE_ID 102
-//#define MY_NODE_ID 121
+//#define MY_NODE_ID 101
+#define MY_NODE_ID 123
 #define MY_SPLASH_SCREEN_DISABLED
 //#define MY_DISABLED_SERIAL
 
@@ -68,8 +68,8 @@
 //#define MY_RFM95_ATC_TARGET_RSSI_DBM (-70)  // target RSSI -70dBm
 //#define MY_RFM95_MAX_POWER_LEVEL_DBM (10)   // max. TX power 10dBm = 10mW
 
-//#define SHT21
-#define DALLAS
+#define SHT21
+//#define DALLAS
 //#define HDC20x0
 //#define _MS5803
 #define BATTERYTEST
