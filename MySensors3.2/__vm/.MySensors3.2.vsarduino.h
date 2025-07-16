@@ -21,6 +21,8 @@
 #define ARDUINO_AVR_PRO 1
 #define ARDUINO_ARCH_AVR 1
 #define __cplusplus 201103L
+#pragma diag_suppress=338,2925
+// User Defined Errors to Ignore below... [vm.intellisense.ignore-error-codes]
 #define _Pragma(x)
 #define __AVR__
 #define __inline__
